@@ -55,9 +55,10 @@ export default function DictionaryForm() {
 
     return (
     <form>
-        <label style={textStyle}>Selecciona el idioma: </label>
+        <label style={textStyle} htmlFor="language">Selecciona el idioma: </label>
         <label>
             <input
+            id="language"
             type="radio"
             name="language"
             value="español"
@@ -67,6 +68,7 @@ export default function DictionaryForm() {
         </label>
         <label>
             <input
+            id="language"
             type="radio"
             name="language"
             value="quechua"
