@@ -2,7 +2,6 @@ import * as React from "react"
 import DictionaryForm from "../components/dict-form"
 
 const pageStyles = {
-  backgroundColor:"#F2DEA2",
   color: "#513728",
   padding: 30,
   fontFamily: "-apple-system, Roboto, sans-serif, serif"
