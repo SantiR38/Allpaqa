@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import dictionary from '../dictionaries/words_quechua.json'; // Importa el archivo JSON
+import dictionaryQuechua from '../dictionaries/words_quechua.json'; // Importa el archivo JSON
+import dictionarySpanish from '../dictionaries/words_spanish.json'; // Importa el archivo JSON
 
 const inputStyle = {
     color: '#513728',
@@ -13,21 +14,32 @@ const wordDefinitionStyle = {
     fontWeight: 'bold'
 }
 
-const resultsStyle = {
-    marginBottom: '10px'
+const textStyle = {
+    marginBottom: '20px'
 }
 
 export default function DictionaryForm() {
     const [word, setWord] = useState(''); // Estado para almacenar la palabra a buscar
+    const [language, setLanguage] = useState(''); // Estado para almacenar la palabra a buscar
     const [definitions, setDefinitions] = useState([]); // Estado para almacenar los significados de las palabras
 
     // Función de manejo de eventos para el cambio en el campo de entrada
-    const handleChange = (event) => {
+    const handleChangeWord = (event) => {
         setWord(event.target.value);
+    }
+
+    const handleChangeLanguage = (event) => {
+        setLanguage(event.target.value);
     }
 
     // La función useEffect se ejecutará cada vez que se actualice el estado de word
     useEffect(() => {
+        let dictionary = {};
+        if (language === 'quechua') {
+            dictionary = dictionaryQuechua
+        } else if (language === 'español') {
+            dictionary = dictionarySpanish
+        }
         // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
         const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.includes(word));
 
@@ -39,25 +51,50 @@ export default function DictionaryForm() {
             return [result, dictionary[result]];
         });
         setDefinitions(definitions);
-    }, [word]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
+    }, [word, language]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
 
     return (
     <form>
-        <label htmlFor="word">Ingresa una palabra: </label>
-        <input
-        type="text"
-        id="word"
-        value={word}
-        style={inputStyle}
-        onChange={handleChange}
-        />
-        {definitions.length > 0 && word.length > 0 && (
-        <ul>
-            {definitions.map((definition, index) => (
-            <li style={resultsStyle} key={index}><span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}</li>
-            ))}
-        </ul>
-        )}
-    </form>
+        <label style={textStyle}>Selecciona el idioma: </label>
+        <label>
+            <input
+            type="radio"
+            name="language"
+            value="español"
+            onChange={handleChangeLanguage}
+            />
+            Español
+        </label>
+        <label>
+            <input
+            type="radio"
+            name="language"
+            value="quechua"
+            onChange={handleChangeLanguage}
+            />
+            Quechua
+        </label>
+        <br />
+        {language !== '' &&
+            <div>
+                <label style={textStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
+                <br />
+                <input
+                type="text"
+                id="word"
+                value={word}
+                style={inputStyle}
+                onChange={handleChangeWord}
+                />
+                {definitions.length > 0 && word.length > 0 && (
+                    <ul>
+                    {definitions.map((definition, index) => (
+                        <li style={textStyle} key={index}><span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}</li>
+                        ))}
+                        </ul>
+                        )}
+            </div>
+        }
+                </form>
     );
 }
