@@ -15,7 +15,19 @@ const wordDefinitionStyle = {
 }
 
 const textStyle = {
-    marginBottom: '20px'
+    marginBottom: '20px',
+    fontSize: '20px'
+}
+
+const labelStyle = {
+    marginBottom: '20px',
+    display: 'inline-block',
+    fontSize: '23px'
+}
+
+const radioButtonStyle = {
+    ...labelStyle,
+    marginRight: '20px'
 }
 
 export default function DictionaryForm() {
@@ -56,8 +68,9 @@ export default function DictionaryForm() {
 
     return (
     <form>
-        <label style={textStyle} htmlFor="language">Selecciona el idioma: </label>
-        <label>
+        <label style={labelStyle} htmlFor="language">Selecciona el idioma: </label>
+        <br />
+        <label style={radioButtonStyle}>
             <input
             id="language"
             type="radio"
@@ -67,7 +80,7 @@ export default function DictionaryForm() {
             />
             Español
         </label>
-        <label>
+        <label style={labelStyle}>
             <input
             id="language"
             type="radio"
@@ -80,7 +93,7 @@ export default function DictionaryForm() {
         <br />
         {language !== '' &&
             <div>
-                <label style={textStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
+                <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
                 <br />
                 <input
                 type="text"
