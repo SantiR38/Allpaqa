@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dictionaryQuechua from '../dictionaries/words_quechua.json'; // Importa el archivo JSON
-import dictionarySpanish from '../dictionaries/words_spanish.json'; // Importa el archivo JSON
+import dictionarySpanish from '../dictionaries/words_spanish.json';
 
 const inputStyle = {
     color: '#513728',
@@ -34,23 +34,24 @@ export default function DictionaryForm() {
 
     // La función useEffect se ejecutará cada vez que se actualice el estado de word
     useEffect(() => {
-        let dictionary = {};
-        if (language === 'quechua') {
-            dictionary = dictionaryQuechua
-        } else if (language === 'español') {
-            dictionary = dictionarySpanish
+        if (language !== '' && word !== '') {
+            const dictionaries = {
+                español: dictionarySpanish,
+                quechua: dictionaryQuechua
+            }
+            const dictionary = dictionaries[language]
+            // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
+            const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.includes(word));
+            
+            // Toma los primeros 10 resultados
+            const topResults = filteredWords.slice(0, 10);
+            
+            // Crea un array de definiciones para cada palabra encontrada
+            const definitions = topResults.map((result) => {
+                return [result, dictionary[result]];
+            });
+            setDefinitions(definitions);
         }
-        // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
-        const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.includes(word));
-
-        // Toma los primeros 10 resultados
-        const topResults = filteredWords.slice(0, 10);
-
-        // Crea un array de definiciones para cada palabra encontrada
-        const definitions = topResults.map((result) => {
-            return [result, dictionary[result]];
-        });
-        setDefinitions(definitions);
     }, [word, language]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
 
     return (
