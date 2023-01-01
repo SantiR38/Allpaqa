@@ -2,8 +2,9 @@ import * as React from "react"
 import DictionaryForm from "../components/dict-form"
 
 const pageStyles = {
-  color: "#232129",
-  padding: 96,
+  backgroundColor:"#F2DEA2",
+  color: "#513728",
+  padding: 30,
   fontFamily: "-apple-system, Roboto, sans-serif, serif"
 }
 const headingStyles = {
@@ -12,7 +13,7 @@ const headingStyles = {
   maxWidth: 320,
 }
 const headingAccentStyles = {
-  color: "#663399",
+  color: "#4A469E",
 }
 
 const IndexPage = () => {
