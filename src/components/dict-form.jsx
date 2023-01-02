@@ -53,7 +53,7 @@ export default function DictionaryForm() {
             }
             const dictionary = dictionaries[language]
             // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
-            const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.includes(word.toLowerCase()));
+            const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.toLowerCase().includes(word.toLowerCase()));
             
             // Toma los primeros 10 resultados
             const topResults = filteredWords.slice(0, 10);
