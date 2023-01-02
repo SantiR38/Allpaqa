@@ -97,6 +97,7 @@ export default function DictionaryForm() {
                 <br />
                 <input
                 type="text"
+                autoComplete='off'
                 id="word"
                 value={word}
                 style={inputStyle}
