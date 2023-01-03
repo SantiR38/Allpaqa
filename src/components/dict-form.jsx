@@ -32,7 +32,7 @@ const radioButtonStyle = {
 
 export default function DictionaryForm() {
     const [word, setWord] = useState(''); // Estado para almacenar la palabra a buscar
-    const [language, setLanguage] = useState(''); // Estado para almacenar la palabra a buscar
+    const [language, setLanguage] = useState('español'); // Estado para almacenar la palabra a buscar
     const [definitions, setDefinitions] = useState([]); // Estado para almacenar los significados de las palabras
 
     // Función de manejo de eventos para el cambio en el campo de entrada
@@ -46,7 +46,7 @@ export default function DictionaryForm() {
 
     // La función useEffect se ejecutará cada vez que se actualice el estado de word
     useEffect(() => {
-        if (language !== '' && word !== '') {
+        if (word !== '') {
             const dictionaries = {
                 español: dictionarySpanish,
                 quechua: dictionaryQuechua
@@ -72,6 +72,7 @@ export default function DictionaryForm() {
         <br />
         <label style={radioButtonStyle}>
             <input
+            checked={language === 'español'}
             id="language"
             type="radio"
             name="language"
@@ -91,27 +92,27 @@ export default function DictionaryForm() {
             Quechua
         </label>
         <br />
-        {language !== '' &&
-            <div>
-                <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
-                <br />
-                <input
-                type="text"
-                autoComplete='off'
-                id="word"
-                value={word}
-                style={inputStyle}
-                onChange={handleChangeWord}
-                />
-                {definitions.length > 0 && word.length > 0 && (
-                    <ul>
-                    {definitions.map((definition, index) => (
-                        <li style={textStyle} key={index}><span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}</li>
-                        ))}
-                        </ul>
-                        )}
-            </div>
-        }
-                </form>
+        <div>
+            <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
+            <br />
+            <input
+            type="text"
+            autoComplete='off'
+            id="word"
+            value={word}
+            style={inputStyle}
+            onChange={handleChangeWord}
+            />
+            {word.length > 0 && (
+                <ul>
+                {definitions.map((definition, index) => (
+                    <li style={textStyle} key={index}>
+                        <span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}
+                    </li>
+                ))}
+                </ul>
+                )}
+        </div>
+    </form>
     );
 }
