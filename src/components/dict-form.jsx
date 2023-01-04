@@ -72,22 +72,22 @@ export default function DictionaryForm() {
         <br />
         <label style={radioButtonStyle}>
             <input
-            checked={language === 'español'}
-            id="language"
-            type="radio"
-            name="language"
-            value="español"
-            onChange={handleChangeLanguage}
+                checked={language === 'español'}
+                id="language"
+                type="radio"
+                name="language"
+                value="español"
+                onChange={handleChangeLanguage}
             />
             Español
         </label>
         <label style={labelStyle}>
             <input
-            id="language"
-            type="radio"
-            name="language"
-            value="quechua"
-            onChange={handleChangeLanguage}
+                id="language"
+                type="radio"
+                name="language"
+                value="quechua"
+                onChange={handleChangeLanguage}
             />
             Quechua
         </label>
@@ -96,12 +96,13 @@ export default function DictionaryForm() {
             <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
             <br />
             <input
-            type="text"
-            autoComplete='off'
-            id="word"
-            value={word}
-            style={inputStyle}
-            onChange={handleChangeWord}
+                type="text"
+                autoComplete='off'
+                id="word"
+                value={word}
+                style={inputStyle}
+                placeholder={language === 'español' ? 'llevar' : 'apamuy'}
+                onChange={handleChangeWord}
             />
             {word.length > 0 && (
                 <ul>
