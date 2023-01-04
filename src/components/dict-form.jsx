@@ -25,9 +25,16 @@ const labelStyle = {
     fontSize: '23px'
 }
 
-const radioButtonStyle = {
+const selectStyle = {
     ...labelStyle,
-    marginRight: '20px'
+    fontWeight: 'bold',
+    color: '#513728',
+    borderRadius: '5px',
+    border: '3px solid #b8a870',
+    backgroundColor: '#e5d092',
+    padding: '7px 52px',
+    display: 'flex',
+    justifyContent: 'center'
 }
 
 export default function DictionaryForm() {
@@ -70,28 +77,15 @@ export default function DictionaryForm() {
     <form>
         <label style={labelStyle} htmlFor="language">Selecciona el idioma: </label>
         <br />
-        <label style={radioButtonStyle}>
-            <input
-                checked={language === 'español'}
-                id="language-es"
-                type="radio"
-                name="language"
-                value="español"
-                onChange={handleChangeLanguage}
-            />
-            Español
-        </label>
-        <label style={labelStyle}>
-            <input
-                checked={language === 'quechua'}
-                id="language-qu"
-                type="radio"
-                name="language"
-                value="quechua"
-                onChange={handleChangeLanguage}
-            />
-            Quechua
-        </label>
+        <select
+            id="language"
+            style={selectStyle}
+            value={language}
+            onChange={handleChangeLanguage}
+        >
+            <option value="español">Español</option>
+            <option value="quechua">Quechua</option>
+        </select>
         <br />
         <div>
             <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
