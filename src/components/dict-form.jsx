@@ -100,14 +100,14 @@ export default function DictionaryForm() {
                 onChange={handleChangeWord}
             />
             {word.length > 0 && (
-                <ul>
-                {definitions.map((definition, index) => (
-                    <li style={textStyle} key={index}>
-                        <span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}
-                    </li>
-                ))}
-                </ul>
-                )}
+                <>
+                    {definitions.map((definition, index) => (
+                        <p style={textStyle}>
+                            <span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}
+                        </p>
+                    ))}
+                </>
+            )}
         </div>
     </form>
     );

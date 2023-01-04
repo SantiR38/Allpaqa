@@ -3,11 +3,12 @@ import DictionaryForm from "../components/dict-form"
 
 const pageStyles = {
   color: "#513728",
-  padding: 30,
+  maxWidth: 335,
+  margin: 'auto',
   fontFamily: "-apple-system, Roboto, sans-serif, serif"
 }
 const headingStyles = {
-  marginTop: 0,
+  marginTop: 15,
   marginBottom: 44,
   maxWidth: 320,
 }
