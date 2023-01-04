@@ -73,7 +73,7 @@ export default function DictionaryForm() {
         <label style={radioButtonStyle}>
             <input
                 checked={language === 'español'}
-                id="language"
+                id="language-es"
                 type="radio"
                 name="language"
                 value="español"
@@ -83,7 +83,8 @@ export default function DictionaryForm() {
         </label>
         <label style={labelStyle}>
             <input
-                id="language"
+                checked={language === 'quechua'}
+                id="language-qu"
                 type="radio"
                 name="language"
                 value="quechua"
