@@ -41,6 +41,7 @@ export default function DictionaryForm() {
     const [word, setWord] = useState(''); // Estado para almacenar la palabra a buscar
     const [language, setLanguage] = useState('español'); // Estado para almacenar la palabra a buscar
     const [definitions, setDefinitions] = useState([]); // Estado para almacenar los significados de las palabras
+    const [exactDefinition, setExactDefinition] = useState([]); // Estado para almacenar el significado principal
 
     // Función de manejo de eventos para el cambio en el campo de entrada
     const handleChangeWord = (event) => {
@@ -59,14 +60,34 @@ export default function DictionaryForm() {
                 quechua: dictionaryQuechua
             }
             const dictionary = dictionaries[language]
+
+            // DEFINICIONES EXACTAS
+            const filteredExactWords = Object.keys(dictionary).filter(
+                (dictWord) => dictWord.toLowerCase().startsWith(word.toLowerCase())
+            );
+
+            // Toma los primeros 10 resultados
+            const topExactResults = filteredExactWords.slice(0, 10);
+
+            const exactDefinition = topExactResults.map((result) => {
+                return [result, dictionary[result]];
+            });
+            setExactDefinition(exactDefinition);
+
+            // DEFINICIONES RELATIVAS
             // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
-            const filteredWords = Object.keys(dictionary).filter((dictWord) => dictWord.toLowerCase().includes(word.toLowerCase()));
-            
+            const filteredWords = Object.keys(dictionary).filter(
+                (dictWord) => dictWord.toLowerCase().includes(word.toLowerCase())
+            );
+
             // Toma los primeros 10 resultados
             const topResults = filteredWords.slice(0, 10);
-            
+
+            // Quita los elementos que ya se encuentren en topExactResults
+            const filteredResults = topResults.filter(x => !topExactResults.includes(x));
+
             // Crea un array de definiciones para cada palabra encontrada
-            const definitions = topResults.map((result) => {
+            const definitions = filteredResults.map((result) => {
                 return [result, dictionary[result]];
             });
             setDefinitions(definitions);
@@ -99,8 +120,13 @@ export default function DictionaryForm() {
                 placeholder={language === 'español' ? 'llevar' : 'apamuy'}
                 onChange={handleChangeWord}
             />
-            {word.length > 0 && (
+            {word.length > 0 && ( // Primero muestro la definición exacta y después las aproximadas.
                 <>
+                    {exactDefinition.map((definition, index) => (
+                        <p style={textStyle}>
+                            <span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}
+                        </p>
+                    ))}
                     {definitions.map((definition, index) => (
                         <p style={textStyle}>
                             <span style={wordDefinitionStyle}>{definition[0]}: </span>{definition[1]}
