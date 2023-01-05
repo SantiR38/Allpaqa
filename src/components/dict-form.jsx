@@ -3,11 +3,12 @@ import dictionaryQuechua from '../dictionaries/words_quechua.json'; // Importa e
 import dictionarySpanish from '../dictionaries/words_spanish.json';
 
 const inputStyle = {
+    backgroundColor: '#faf0bb',
     color: '#513728',
     height: '40px',
     fontSize: '24px',
-    borderColor: 'green',
-    borderRadius: '10px'
+    borderColor: '#d9ca98',
+    borderRadius: '15px 5px'
 }
 
 const wordDefinitionStyle = {
@@ -29,9 +30,9 @@ const selectStyle = {
     ...labelStyle,
     fontWeight: 'bold',
     color: '#513728',
-    borderRadius: '5px',
-    border: '3px solid #b8a870',
-    backgroundColor: '#e5d092',
+    borderRadius: '15px 5px',
+    border: '3px solid #d9ca98',
+    backgroundColor: '#faf0bb',
     padding: '7px 52px',
     display: 'flex',
     justifyContent: 'center'
