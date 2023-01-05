@@ -52,6 +52,29 @@ export default function DictionaryForm() {
         setLanguage(event.target.value);
     }
 
+    const getDefinitions = (word, dictionary, isExactMatch, maxLength) => {
+        let filteredWords = []
+        if (isExactMatch) {
+            filteredWords = Object.keys(dictionary).filter(
+                (dictWord) => dictWord.toLowerCase().startsWith(word.toLowerCase())
+            );
+        } else if (maxLength > 0) {
+            filteredWords = Object.keys(dictionary).filter(
+                (dictWord) => dictWord.toLowerCase().includes(word.toLowerCase())
+            );
+        } else {
+            return []
+        }
+
+        // Toma los primeros resultados
+        const topResults = filteredWords.slice(0, maxLength);
+
+        const definition = topResults.map((result) => {
+            return [result, dictionary[result]];
+        });
+        return definition;
+    }
+
     // La función useEffect se ejecutará cada vez que se actualice el estado de word
     useEffect(() => {
         if (word !== '') {
@@ -62,35 +85,13 @@ export default function DictionaryForm() {
             const dictionary = dictionaries[language]
 
             // DEFINICIONES EXACTAS
-            const filteredExactWords = Object.keys(dictionary).filter(
-                (dictWord) => dictWord.toLowerCase().startsWith(word.toLowerCase())
-            );
-
-            // Toma los primeros 10 resultados
-            const topExactResults = filteredExactWords.slice(0, 10);
-
-            const exactDefinition = topExactResults.map((result) => {
-                return [result, dictionary[result]];
-            });
+            const exactDefinition = getDefinitions(word, dictionary, true, 10)
             setExactDefinition(exactDefinition);
 
             // DEFINICIONES RELATIVAS
-            // Filtra el archivo JSON para encontrar las palabras que contengan la palabra a buscar
-            const filteredWords = Object.keys(dictionary).filter(
-                (dictWord) => dictWord.toLowerCase().includes(word.toLowerCase())
-            );
-
-            // Toma los primeros 10 resultados
-            const topResults = filteredWords.slice(0, 10);
-
-            // Quita los elementos que ya se encuentren en topExactResults
-            const filteredResults = topResults.filter(x => !topExactResults.includes(x));
-
-            // Crea un array de definiciones para cada palabra encontrada
-            const definitions = filteredResults.map((result) => {
-                return [result, dictionary[result]];
-            });
-            setDefinitions(definitions);
+            const maxLength = 10 - exactDefinition.length
+            const relativeDefinitions = getDefinitions(word, dictionary, false, maxLength)
+            setDefinitions(relativeDefinitions);
         }
     }, [word, language]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
 
