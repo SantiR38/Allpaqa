@@ -1,6 +1,13 @@
 import * as React from "react"
 import DictionaryForm from "../components/dict-form"
 
+const headerBoxStyles = {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: 40,
+  marginTop: 20
+}
+
 const pageStyles = {
   color: "#513728",
   maxWidth: 335,
@@ -8,22 +15,26 @@ const pageStyles = {
   fontFamily: "-apple-system, Roboto, sans-serif, serif"
 }
 const headingStyles = {
-  marginTop: 15,
-  marginBottom: 44,
+  marginBottom: 0,
   maxWidth: 320,
 }
 const headingAccentStyles = {
+  marginTop: 0,
   color: "#4A469E",
 }
 
 const IndexPage = () => {
   return (
     <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Allpaqa 🦙🦙🦙
+      <div style={headerBoxStyles}>
+        <img src="/icons/icon-144x144.png" alt="Alpaca" />
+        <div>
+        <h1 style={headingStyles}>Allpaqa</h1>
         <br />
-        <span style={headingAccentStyles}>Diccionario bilingüe español - quechua</span>
-      </h1>
+        <h3 style={headingAccentStyles}>Diccionario bilingüe<br />español - quechua</h3>
+        </div>
+      </div>
+
       <DictionaryForm></DictionaryForm>
     </main>
   )
