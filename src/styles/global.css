@@ -3,4 +3,10 @@ body {
     background-color: #FFF6C7;
     margin:0; 
     padding:0;
+    min-height: 100vh;
+}
+#___gatsby,
+#gatsby-focus-wrapper,
+main {
+    min-height: 100vh;
 }

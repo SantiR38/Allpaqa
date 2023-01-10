@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import dictionaryQuechua from '../dictionaries/words_quechua.json'; // Importa el archivo JSON
 import dictionarySpanish from '../dictionaries/words_spanish.json';
 
+const styles = {
+    form: {
+        paddingBottom: '20px'
+    }
+}
+
 const inputStyle = {
     backgroundColor: '#faf0bb',
     color: '#513728',
@@ -16,7 +22,7 @@ const wordDefinitionStyle = {
 }
 
 const textStyle = {
-    marginBottom: '20px',
+    marginBottom: 0,
     fontSize: '20px'
 }
 
@@ -97,7 +103,7 @@ export default function DictionaryForm() {
     }, [word, language]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
 
     return (
-    <form>
+    <form style={styles.form}>
         <label style={labelStyle} htmlFor="language">Selecciona el idioma: </label>
         <br />
         <select
