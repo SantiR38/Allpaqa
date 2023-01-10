@@ -47,20 +47,22 @@ const headingStyles = {
 }
 const headingAccentStyles = {
   marginTop: 0,
-  color: "#4A469E",
+  color: "#5651bf",
 }
 
 const IndexPage = () => {
   const [currentIcon, setCurrentIcon] = React.useState(faMoon);
-  const [currentTheme, setCurrentTheme] = React.useState(Styles.themes.light);
+  const [currentTheme, setcurrentTheme] = React.useState('light');
+  const [currentThemeStyle, setcurrentThemeStyle] = React.useState(Styles.themes.light);
 
   const handleChangeIcon = () => {
-    setCurrentTheme(currentIcon === faSun ? Styles.themes.light : Styles.themes.dark);
+    setcurrentThemeStyle(currentIcon === faSun ? Styles.themes.light : Styles.themes.dark);
     setCurrentIcon(currentIcon === faSun ? faMoon : faSun);
+    setcurrentTheme(currentIcon === faSun ? 'light' : 'dark');
   }
 
   return (
-    <main style={currentTheme}>
+    <main style={currentThemeStyle}>
       <div style={Styles.page}>
         <div style={headerBoxStyles}>
           <img src="/icons/icon-144x144.png" alt="Alpaca" />
@@ -73,7 +75,7 @@ const IndexPage = () => {
         <button style={Styles.moonSun.button} onClick={handleChangeIcon}>
           <FontAwesomeIcon icon={currentIcon} style={Styles.moonSun.icon} />
         </button>
-        <DictionaryForm></DictionaryForm>
+        <DictionaryForm theme={currentTheme}></DictionaryForm>
       </div>
     </main>
   )

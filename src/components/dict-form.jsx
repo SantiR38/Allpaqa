@@ -5,15 +5,24 @@ import dictionarySpanish from '../dictionaries/words_spanish.json';
 const styles = {
     form: {
         paddingBottom: '20px'
+    },
+    theme: {
+        light: {
+            borderColor: '#d9ca98',
+            backgroundColor: '#faf0bb',
+            color: '#513728'
+        },
+        dark: {
+            borderColor: '#191919',
+            backgroundColor: '#343333',
+            color: '#C5C5C5'
+        }
     }
 }
 
 const inputStyle = {
-    backgroundColor: '#faf0bb',
-    color: '#513728',
     height: '40px',
     fontSize: '24px',
-    borderColor: '#d9ca98',
     borderRadius: '15px 5px'
 }
 
@@ -35,20 +44,20 @@ const labelStyle = {
 const selectStyle = {
     ...labelStyle,
     fontWeight: 'bold',
-    color: '#513728',
     borderRadius: '15px 5px',
-    border: '3px solid #d9ca98',
-    backgroundColor: '#faf0bb',
+    border: '3px solid',
     padding: '7px 52px',
     display: 'flex',
     justifyContent: 'center'
 }
 
-export default function DictionaryForm() {
+export default function DictionaryForm(props) {
     const [word, setWord] = useState(''); // Estado para almacenar la palabra a buscar
     const [language, setLanguage] = useState('español'); // Estado para almacenar la palabra a buscar
     const [definitions, setDefinitions] = useState([]); // Estado para almacenar los significados de las palabras
     const [exactDefinition, setExactDefinition] = useState([]); // Estado para almacenar el significado principal
+    const [labelTheme, setlabelTheme] = useState(); // Estado para almacenar el tema del label y el select
+    let { theme } = props;
 
     // Función de manejo de eventos para el cambio en el campo de entrada
     const handleChangeWord = (event) => {
@@ -100,7 +109,8 @@ export default function DictionaryForm() {
             const relativeDefinitions = getDefinitions(word, dictionary, false, maxLength)
             setDefinitions(relativeDefinitions);
         }
-    }, [word, language]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
+        setlabelTheme(theme === 'dark' ? styles.theme.dark : styles.theme.light);
+    }, [word, language, theme]); // Dependencia de word para que la función useEffect se ejecute cada vez que se actualice el estado de word
 
     return (
     <form style={styles.form}>
@@ -108,7 +118,7 @@ export default function DictionaryForm() {
         <br />
         <select
             id="language"
-            style={selectStyle}
+            style={{...selectStyle, ...labelTheme}}
             value={language}
             onChange={handleChangeLanguage}
         >
@@ -124,7 +134,7 @@ export default function DictionaryForm() {
                 autoComplete='off'
                 id="word"
                 value={word}
-                style={inputStyle}
+                style={{...inputStyle, ...labelTheme}}
                 placeholder={language === 'español' ? 'llevar' : 'apamuy'}
                 onChange={handleChangeWord}
             />
