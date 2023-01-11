@@ -51,6 +51,10 @@ const Styles = {
       marginRight: 10,
     }
   },
+  image: {
+    width: 144,
+    height: 144
+  },
   container: {
     display: 'grid',
     justifyContent: 'center',
@@ -65,6 +69,7 @@ const headingStyles = {
 const headingAccentStyles = {
   marginTop: 0,
   color: "#5651bf",
+  fontSize: '1.15rem'
 }
 
 const IndexPage = () => {
@@ -90,7 +95,7 @@ const IndexPage = () => {
           <div>
             <h1 style={headingStyles}>Allpaqa</h1>
             <br />
-            <h3 style={headingAccentStyles}>Diccionario bilingüe<br />español - quechua</h3>
+            <h2 style={headingAccentStyles}>Diccionario bilingüe<br />español - quechua</h2>
           </div>
         </div>
         <div style={Styles.container}>
