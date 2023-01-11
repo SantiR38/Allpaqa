@@ -17,6 +17,12 @@ const styles = {
             backgroundColor: '#343333',
             color: '#C5C5C5'
         }
+    },
+    container: {
+        display: 'grid',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
     }
 }
 
@@ -36,7 +42,6 @@ const textStyle = {
 }
 
 const labelStyle = {
-    marginBottom: '20px',
     display: 'inline-block',
     fontSize: '23px'
 }
@@ -47,8 +52,7 @@ const selectStyle = {
     borderRadius: '15px 5px',
     border: '3px solid',
     padding: '7px 52px',
-    display: 'flex',
-    justifyContent: 'center'
+    marginBottom: '25px'
 }
 
 export default function DictionaryForm(props) {
@@ -114,19 +118,20 @@ export default function DictionaryForm(props) {
 
     return (
     <form style={styles.form}>
-        <label style={labelStyle} htmlFor="language">Selecciona el idioma: </label>
-        <br />
-        <select
-            id="language"
-            style={{...selectStyle, ...labelTheme}}
-            value={language}
-            onChange={handleChangeLanguage}
-        >
-            <option value="español">Español</option>
-            <option value="quechua">Quechua</option>
-        </select>
-        <br />
-        <div>
+        <div style={styles.container}>
+            <label style={labelStyle} htmlFor="language">Selecciona el idioma: </label>
+            <br />
+            <select
+                id="language"
+                style={{...selectStyle, ...labelTheme}}
+                value={language}
+                onChange={handleChangeLanguage}
+                >
+                <option value="español">Español</option>
+                <option value="quechua">Quechua</option>
+            </select>
+        </div>
+        <div style={styles.container}>
             <label style={labelStyle} htmlFor="word">Ingresa una palabra en {language}: </label>
             <br />
             <input

@@ -9,6 +9,13 @@ const headerBoxStyles = {
   marginBottom: 20,
   paddingTop: 20
 }
+const buttonStyles = {
+  backgroundColor: 'transparent',
+  borderRadius: '15px 5px',
+  fontSize: '120%',
+  width: 229,
+  marginBottom: 20,
+}
 const Styles = {
   page: {
     maxWidth: 335,
@@ -28,24 +35,27 @@ const Styles = {
     }
   },
   moonSun: {
-    icon: {
+    button: {
       light:{
-        fontSize: '250%',
-        marginRight: 'auto',
+        ...buttonStyles,
+        borderColor: '#d9ca98',
         color: '#513728'
       },
       dark:{
-        fontSize: '250%',
-        marginRight: 'auto',
+        ...buttonStyles,
+        borderColor: '#191919',
         color: '#C5C5C5'
       }
     },
-    button: {
-      backgroundColor: 'transparent',
-      borderColor: 'transparent',
-      marginBottom: 20,
-      marginLeft: 150
+    icon: {
+      marginRight: 10,
     }
+  },
+  container: {
+    display: 'grid',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   }
 }
 const headingStyles = {
@@ -59,31 +69,36 @@ const headingAccentStyles = {
 
 const IndexPage = () => {
   const [currentIcon, setCurrentIcon] = React.useState(faMoon);
-  const [currentIconStyle, setCurrentIconStyle] = React.useState(Styles.moonSun.icon.light);
+  const [currentButtonStyle, setCurrentButtonStyle] = React.useState(Styles.moonSun.button.light);
   const [currentTheme, setcurrentTheme] = React.useState('light');
   const [currentThemeStyle, setcurrentThemeStyle] = React.useState(Styles.themes.light);
+  const [themeMessage, setCurrentThemeMessage] = React.useState('oscuro')
 
   const handleChangeIcon = () => {
     setcurrentThemeStyle(currentIcon === faSun ? Styles.themes.light : Styles.themes.dark);
     setCurrentIcon(currentIcon === faSun ? faMoon : faSun);
-    setCurrentIconStyle(currentIcon === faSun ? Styles.moonSun.icon.light : Styles.moonSun.icon.dark);
+    setCurrentButtonStyle(currentIcon === faSun ? Styles.moonSun.button.light : Styles.moonSun.button.dark);
     setcurrentTheme(currentIcon === faSun ? 'light' : 'dark');
+    setCurrentThemeMessage(currentIcon === faSun ? 'oscuro' : 'claro');
   }
 
   return (
     <main style={currentThemeStyle}>
-      <div style={Styles.page}>
+      <div style={{...Styles.page, ...Styles.container}}>
         <div style={headerBoxStyles}>
           <img src="/icons/icon-144x144.png" alt="Alpaca" />
           <div>
-          <h1 style={headingStyles}>Allpaqa</h1>
-          <br />
-          <h3 style={headingAccentStyles}>Diccionario bilingüe<br />español - quechua</h3>
+            <h1 style={headingStyles}>Allpaqa</h1>
+            <br />
+            <h3 style={headingAccentStyles}>Diccionario bilingüe<br />español - quechua</h3>
           </div>
         </div>
-        <button style={Styles.moonSun.button} onClick={handleChangeIcon}>
-          <FontAwesomeIcon icon={currentIcon} style={currentIconStyle} />
-        </button>
+        <div style={Styles.container}>
+          <button style={currentButtonStyle} onClick={handleChangeIcon}>
+            <FontAwesomeIcon icon={currentIcon} style={Styles.moonSun.icon} />
+            Modo {themeMessage}
+          </button>
+        </div>
         <DictionaryForm theme={currentTheme}></DictionaryForm>
       </div>
     </main>
