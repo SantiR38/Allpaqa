@@ -12,8 +12,9 @@ const headerBoxStyles = {
 const buttonStyles = {
   backgroundColor: 'transparent',
   borderRadius: '15px 5px',
-  fontSize: '120%',
+  fontSize: '100%',
   width: 229,
+  height: 28,
   marginBottom: 20,
 }
 const Styles = {
@@ -79,6 +80,7 @@ const IndexPage = () => {
   const [currentTheme, setcurrentTheme] = React.useState('light');
   const [currentThemeStyle, setcurrentThemeStyle] = React.useState(Styles.themes.light);
   const [themeMessage, setCurrentThemeMessage] = React.useState('oscuro')
+  const [show, setShow] = React.useState(false);
 
   const handleChangeIcon = () => {
     setcurrentThemeStyle(currentIcon === faSun ? Styles.themes.light : Styles.themes.dark);
@@ -87,6 +89,18 @@ const IndexPage = () => {
     setcurrentTheme(currentIcon === faSun ? 'light' : 'dark');
     setCurrentThemeMessage(currentIcon === faSun ? 'oscuro' : 'claro');
   }
+
+  React.useEffect(() => {
+    // En prod el ícono se carga muy grande y despues se achica.
+    // Ocultarlo mientras esté grande.
+    const timeoutId = setTimeout(() => {
+      setShow(true);
+    }, 1500);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  const themeButton = <FontAwesomeIcon icon={currentIcon} style={Styles.moonSun.icon} />
 
   return (
     <main style={currentThemeStyle}>
@@ -101,8 +115,8 @@ const IndexPage = () => {
         </div>
         <div style={Styles.container}>
           <button style={currentButtonStyle} onClick={handleChangeIcon}>
-            <FontAwesomeIcon icon={currentIcon} style={Styles.moonSun.icon} />
-            Modo {themeMessage}
+            {show ? themeButton : null}
+            Activar modo {themeMessage}
           </button>
         </div>
         <DictionaryForm theme={currentTheme}></DictionaryForm>
