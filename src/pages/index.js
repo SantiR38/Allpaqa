@@ -49,6 +49,7 @@ const Styles = {
     },
     icon: {
       marginRight: 10,
+      fontSize: '1em'
     }
   },
   image: {
